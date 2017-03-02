@@ -19,13 +19,13 @@
 
 			<section class=" row col-md-6 col-md-offset-3 gameboard">
 
-				<div class="square red "></div>
+				<div class="square red " data="1"></div>
 
-				<div class="square blue "></div>
+				<div class="square blue " data="2"></div>
 
-				<div class="square green "></div>
+				<div class="square green " data="3"></div>
 
-				<div class="square yellow "></div>
+				<div class="square yellow " data="4"></div>
 
 			</section>
 
@@ -49,29 +49,59 @@
 			var max = 4;
 			var simrandomnumber;
 			var timer;
-			var simonsequence =[];
-
+			var simonsequence = [];
+			var i = 0;
 			// random number generator 
 
-			function getRandomIntInclusive(min, max) {
-  				min = Math.ceil(min);
-  				max = Math.floor(max);
+			function getRandomIntInclusive() {
+
   				simrandomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
-  				simonsequence += parseFloat(simrandomnumber);
-  				console.log(parseFloat(simonsequence));
+
+  				simonsequence.push(simrandomnumber);
+
+  				console.log(simonsequence);
 			};
+
+			getRandomIntInclusive();
  
 			// event listener click for squares  
 
-			$(".square").click(function(simonclicks) {
+			var round = function () {
+
+			};
+
+			$(".square").mousedown(function() {
+
+				$(this).addClass("down");
 				
-				setInterval(function() {
-					$(this).addClass("down");
-				},100);
-					
+				$(this).mouseup(function() {
+					$(this).removeClass("down")
+				 });	
 
-					console.log($(this));
+				console.log($(this).attr("data"));
 
+				if ($(this).attr("data") == simonsequence[i]) {
+
+					if (simonsequence.length - 1 == i) {
+
+						getRandomIntInclusive();
+
+						i = 0;
+
+					} else {
+
+						i++;
+
+					};
+
+				} else {
+
+					simonsequence = [];
+
+					i = 0;
+
+
+				};
 				
 			});	
 			
