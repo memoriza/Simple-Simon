@@ -1,0 +1,44 @@
+.gameboard {
+	background-color: black;
+	padding-top: 15px;
+	width: 440px;
+	height:440px;
+	
+}
+
+.square {
+	width: 200px;
+	height: 200px;
+	float: left;
+	margin-color: white;
+	margin: 2px;
+
+}
+
+.down {
+	opacity: .4;
+}
+
+.up {
+	opacity: 1.0;
+}
+
+.red {
+	background-color: red;
+	border-top-left-radius: 30px;
+}
+
+.blue {
+	background-color: blue;
+	border-top-right-radius: 30px;
+}
+
+.yellow {
+	background-color: yellow;
+	border-bottom-right-radius: 30px;
+}
+
+.green {
+	background-color: green;
+	border-bottom-left-radius: 30px;
+}
