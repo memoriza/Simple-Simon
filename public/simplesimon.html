@@ -17,7 +17,9 @@
 
 		<main class="container">
 
-			<section class=" row col-md-6 col-md-offset-3 gameboard">
+			<h1 class="start">Click Here To Begin</h1>
+
+			<section class="row col-md-6 col-md-offset-3 gameboard">
 
 				<div class="square red " data="1"></div>
 
@@ -51,6 +53,16 @@
 			var timer;
 			var simonsequence = [];
 			var i = 0;
+
+
+			// game start
+
+			$(".start").click(function() {
+
+				$(".start").fadeOut(400,getRandomIntInclusive());
+  				
+			});
+
 			// random number generator 
 
 			function getRandomIntInclusive() {
@@ -62,23 +74,24 @@
   				console.log(simonsequence);
 			};
 
-			getRandomIntInclusive();
+			
  
-			// event listener click for squares  
-
-			var round = function () {
-
-			};
+			// click event listener for squares  
 
 			$(".square").mousedown(function() {
 
 				$(this).addClass("down");
+
 				
 				$(this).mouseup(function() {
-					$(this).removeClass("down")
+
+					$(this).removeClass("down");
+
 				 });	
 
 				console.log($(this).attr("data"));
+
+				// logic for adding numbers into simon array based on user input 
 
 				if ($(this).attr("data") == simonsequence[i]) {
 
@@ -100,11 +113,20 @@
 
 					i = 0;
 
+					function newRound() {
 
+						$(".start").fadeIn(100);
+
+						$(".square").removeClass("down");
+					};
+
+					newRound();
 				};
 				
-			});	
-			
+			});
+
+
+
 		});
 
 
