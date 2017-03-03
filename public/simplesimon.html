@@ -40,14 +40,13 @@
 
 		<script type="text/javascript">
 
-		$(document).ready(function () {
+		// $(document).ready(function () {
 
 			// global variables
 			
 			var min = 1;
 			var max = 4;
 			var simrandomnumber;
-			var timer;
 			var simonsequence = [];
 			var i = 0;
 
@@ -59,7 +58,7 @@
 
 			});
 
-			// random number generator 
+			// random number generator that adds to array when called
 
 			function getRandomIntInclusive() {
 
@@ -69,24 +68,69 @@
 
   				console.log(simonsequence);
 
-
 			};
 
 			// functions for lighting up the squares
 
 
+
+			function buttonFlash(color) {
+
+				color.addClass("up");
+
+				setTimeout(function () {
+
+					color.removeClass("up");
+
+				}, 300); 
+				
+			};
+
+			function lightingUp(simonsequence) {
+
+				$.each(simonsequence, function() {
+
+					switch(simonsequence[i]) {
+
+					    case 1:
+					        buttonFlash($(".red"));
+					        break;
+
+					    case 2:
+					    	buttonFlash($(".blue"));
+					        break;
+					
+						case 3:
+							buttonFlash($(".green"));
+							break;
+
+						case 4:
+							buttonFlash($(".yellow"));
+							break;
+
+
+					};
+
+
+
+
+				}); 
+
+			};
 			 
 			// animation for click event listener for squares  
 
-			$(".square").mousedown(function() {
+			function squareClick () {
 
-				$(this).addClass("down");
+				$(".square").mousedown(function() {
+
+					$(this).addClass("down");
 				
 				$(this).mouseup(function() {
 
 					$(this).removeClass("down");
 
-				});	
+				});
 
 				console.log($(this).attr("data"));
 
@@ -123,11 +167,12 @@
 					newRound();
 				};
 				
-			});
+				});
+			};
 
+			squareClick();
 
-
-		});
+		// });
 
 
 		</script>

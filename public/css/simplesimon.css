@@ -14,6 +14,7 @@ body {
 	padding-top: 15px;
 	width: 440px;
 	height:440px;
+	border-radius:20px;
 	
 }
 
@@ -32,6 +33,10 @@ body {
 
 .up {
 	opacity: .75;
+}
+
+.add {
+	opacity: 1.0;
 }
 
 .red {
