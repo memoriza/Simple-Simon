@@ -18,7 +18,7 @@
 
 		<main class="container">
 
-			<marquee scrollamount="20" class=" h1 text-center start">Click Here To Begin Click Here To Begin Click Here To Begin Click Here To Begin Click Here To Begin</marquee>
+			<marquee id="play" scrollamount="20" class=" h1 text-center start">Click Here To Begin Click Here To Begin Click Here To Begin Click Here To Begin Click Here To Begin</marquee>
 
 			<section class="text-center row col-md-6 col-sm-6 col-xs-6 col-lg-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-3 col-lg-offset-3 gameboard">
 
@@ -68,11 +68,29 @@
 
   				console.log(simonsequence);
 
+				animateSimon();
+
 			};
 
 			// functions for lighting up the squares
 
+			function animateSimon () {
 
+				var i = 0;
+
+				var interval = setInterval(function() {
+
+					if(i >= simonsequence.length) {
+						clearInterval(interval);
+					};
+
+				lightingUp(simonsequence[i]);
+
+				i++;
+
+				},400);
+
+			};
 
 			function buttonFlash(color) {
 
@@ -86,11 +104,11 @@
 				
 			};
 
-			function lightingUp(simonsequence) {
+			function lightingUp(element) {
 
 				$.each(simonsequence, function() {
 
-					switch(simonsequence[i]) {
+					switch(element) {
 
 					    case 1:
 					        buttonFlash($(".red"));
@@ -108,17 +126,13 @@
 							buttonFlash($(".yellow"));
 							break;
 
-
 					};
-
-
-
 
 				}); 
 
 			};
 			 
-			// animation for click event listener for squares  
+			// animation for user click 
 
 			function squareClick () {
 
@@ -134,7 +148,7 @@
 
 				console.log($(this).attr("data"));
 
-				// logic for adding numbers into simon array based on user input 
+				// game logic based on user input success or failure
 
 				if ($(this).attr("data") == simonsequence[i]) {
 
@@ -142,7 +156,7 @@
 
 						getRandomIntInclusive();
 
-						i = 0;
+						i = 0; 
 
 					} else {
 
