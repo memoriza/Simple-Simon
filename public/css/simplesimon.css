@@ -1,12 +1,22 @@
 body {
-	background-image: url("../img/sun.jpg");
+	
 	background-position: top;
+	background-color: black;
+}
+
+main {
+	position: relative;
 }
 
 .start {
 	color: #CFFFB3;
 	font-style: italic;
-	m
+	
+}
+
+.end {
+	color: #D499B9;
+	font-size: 300px;
 }
 
 .gameboard {
@@ -15,6 +25,7 @@ body {
 	width: 440px;
 	height:440px;
 	border-radius:20px;
+	position: absolute;
 	
 }
 

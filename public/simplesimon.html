@@ -15,10 +15,13 @@
 	</head>
 
 	<body>
-
+		
 		<main class="container">
 
-			<marquee id="play" scrollamount="20" class=" h1 text-center start">Click Here To Begin Click Here To Begin Click Here To Begin Click Here To Begin Click Here To Begin</marquee>
+			<div class="feature">
+
+			<marquee scrollamount="20" class=" h1 text-center start">Click Here To Begin Click Here To Begin Click Here To Begin Click Here To Begin Click Here To Begin</marquee>
+			
 
 			<section class="text-center row col-md-6 col-sm-6 col-xs-6 col-lg-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-3 col-lg-offset-3 gameboard">
 
@@ -31,6 +34,10 @@
 				<div class="square yellow " data="4"></div>
 
 			</section>
+			
+			<marquee scrollamount="30" class="hidden text-center row h1 end">Game Over Game Over Game Over Game Over Game Over Game Over Game Over Game Over</marquee>
+			
+			</div>
 
 		</main>
 
@@ -44,23 +51,86 @@
 
 			// global variables
 			
-			var min = 1;
-			var max = 4;
 			var simrandomnumber;
 			var simonsequence = [];
 			var i = 0;
 
-			// game start
+			// audio variables
+			var audioone = document.createElement("AUDIO");
+			var audiotwo = document.createElement("AUDIO");
+
+
+			// background fade in
+
+			function backgroundFade () {
+
+				var bgimage = new Image();
+
+				bgimage.src="../img/sun.jpg"
+
+					$(bgimage).load(function(){
+
+						$("body").css("background-image","url("+$(this).attr("src")+")").fadeIn(2000);
+
+					});
+
+			};
+
+			// audio functionality
+
+			function audioPlay () {
+
+				audioone.canPlayType("audio/mpeg");
+
+				audioone.setAttribute("src","/audio/simonhightrim.mp3");
+
+				audioone.loop = true|false;
+
+				audioone.play().loop;
+
+			};
+
+			function losingAudio () {
+
+				audiotwo.canPlayType("audio/mpeg");
+
+				audiotwo.setAttribute("src","/audio/simonend.mp3");
+
+				audiotwo.loop = true|false;
+
+				audiotwo.loop;
+
+				audiotwo.play().loop;
+
+			};
+
+			// game start function 
 
 			$(".start").click(function() {
 
-				$(".start").fadeOut(400,getRandomIntInclusive());
+				audiotwo.pause();
+
+				backgroundFade();
+
+				$(".start").fadeOut(200,getRandomIntInclusive());
+
+				audioPlay();
+
+				$(".end").fadeOut(300);
+
+				$(".end").addClass("hidden");
+
+			
 
 			});
 
 			// random number generator that adds to array when called
 
 			function getRandomIntInclusive() {
+
+				var min = 1;
+
+				var max = 4;
 
   				simrandomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -72,7 +142,8 @@
 
 			};
 
-			// functions for lighting up the squares
+			
+			// animating simon sequence
 
 			function animateSimon () {
 
@@ -88,7 +159,7 @@
 
 				i++;
 
-				},400);
+				}, 400);
 
 			};
 
@@ -96,17 +167,16 @@
 
 				color.addClass("up");
 
-				setTimeout(function () {
+					setTimeout(function () {
 
-					color.removeClass("up");
+						color.removeClass("up");
 
-				}, 300); 
+					}, 300); 
 				
 			};
 
 			function lightingUp(element) {
 
-				$.each(simonsequence, function() {
 
 					switch(element) {
 
@@ -127,8 +197,6 @@
 							break;
 
 					};
-
-				}); 
 
 			};
 			 
@@ -170,12 +238,18 @@
 
 					i = 0;
 
-					function newRound() {
+					$(".end").removeClass("hidden").fadeIn(500);
+					
+						function newRound() {
 
-						$(".start").fadeIn(300);
+							$(".start").fadeIn(300);
 
-						$(".square").removeClass("down");
-						
+							$(".square").removeClass("down");
+
+							audioone.pause();
+
+							losingAudio(); 
+
 					};
 
 					newRound();
