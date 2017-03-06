@@ -46,10 +46,6 @@ main {
 	opacity: .75;
 }
 
-.add {
-	opacity: 1.0;
-}
-
 .red {
 	background-color: red;
 	border-top-left-radius: 30px;
