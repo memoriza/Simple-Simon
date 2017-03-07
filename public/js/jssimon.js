@@ -1,15 +1,12 @@
 $(document).ready(function () {
 
 "use strict";
-
-// global variables
 			
 var simrandomnumber;
 var simonsequence = [];
 var i = 0;
 var roundcounter = 0;
 
-// audio variables
 var backgroundm = document.createElement("AUDIO");
 var losingm = document.createElement("AUDIO");
 var	redm = document.createElement("AUDIO");
@@ -19,10 +16,6 @@ var yellowm = document.createElement("AUDIO");
 var userm = document.createElement("AUDIO");
 var roundm = document.createElement("AUDIO");
 
-
-
-// background fade in
-
 function backgroundFade () {
 
 	var bgimage = new Image();
@@ -31,19 +24,17 @@ function backgroundFade () {
 
 	$(bgimage).load(function(){
 
-		$("body").css("background-image","url("+$(this).attr("src")+")").fadeIn(1000);
+		$("body").css("background-image","url("+$(this).attr("src")+")");
 
 	});
 
 };
 
-// audio functionality
-
 function audioPlay () {
 
 	backgroundm.canPlayType("audio/mpeg");
 
-	backgroundm.setAttribute("src","/audio/simonhightrim.mp3");
+	backgroundm.setAttribute("src","/audio/simonsoft.mp3");
 
 	backgroundm.loop = true|false;
 
@@ -119,14 +110,11 @@ function roundAudio () {
 
 	roundm.canPlayType("audio/mpeg");
 
-	roundm.setAttribute("src", "/audio/.mp3")
+	roundm.setAttribute("src", "/audio/newround.mp3")
 
 	roundm.play();
 
-
-}
-
-// game start function 
+};
 
 function gameStart () {
 
@@ -156,8 +144,6 @@ function gameStart () {
 
 gameStart();
 
-// function for determining which round of Simon the user is on
-
 function simonRound () {
 
 	$("div.roundcounter").hide().fadeIn(200);
@@ -166,21 +152,17 @@ function simonRound () {
 
 	if (roundcounter >= 10) {
 
-		$(".gameboard").css("background-image", "url('../img/spin.gif')");
-
-	} else if (roundcounter >= 20) {
-
 		$(".gameboard").css("background-image", "url('../img/wavesofjoy.gif')");
 			
 	} else {
 
-		$(".gameboard").css("background-color","black");
+		roundAudio();
+
+		$(".gameboard").css("background-image","url('')");
 
 	};
 
 };
-
-// game over function
 
 function gameOver() {
 
@@ -198,8 +180,6 @@ function gameOver() {
 
 };
 
-// random number generator that adds to array when called
-
 function getRandomIntInclusive() {
 
 	var min = 1;
@@ -210,14 +190,9 @@ function getRandomIntInclusive() {
 
   	simonsequence.push(simrandomnumber);
 
-  	console.log(simonsequence);
-
 	animateSimon();
 
 };
-
-			
-// animating simon sequence
 
 function animateSimon () {
 
@@ -237,7 +212,6 @@ function animateSimon () {
 
 };
 
-// function switch statement calls to light up each square
 function buttonFlash(color) {
 
 	color.addClass("up");
@@ -250,7 +224,6 @@ function buttonFlash(color) {
 				
 };
 
-// function that checks simon sequence and determines which button to light up
 function lightingUp(element) {
 
 	switch(element) {
@@ -279,10 +252,6 @@ function lightingUp(element) {
 
 };
 
-
-			 
-// function for animation for user click 
-
 function userClick () {
 
 	$(".square").mousedown(function() {
@@ -297,9 +266,7 @@ function userClick () {
 
 		});
 
-		console.log($(this).attr("data"));
 
-// game logic based on user input being the same as the simon array
 
 		if ($(this).attr("data") == simonsequence[i]) {
 

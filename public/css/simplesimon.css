@@ -23,7 +23,8 @@ main {
 
 	background-color: black;
 	padding-top: 25px;
-	width: 460px;
+	padding-right: 10px;
+	width: 445px;
 	height:460px;
 	border-radius:20px;
 	position: absolute;
