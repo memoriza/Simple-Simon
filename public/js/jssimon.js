@@ -10,13 +10,14 @@ var i = 0;
 var roundcounter = 0;
 
 // audio variables
-var audioone = document.createElement("AUDIO");
-var audiotwo = document.createElement("AUDIO");
-var audiothree = document.createElement("AUDIO");
-var audiofour = document.createElement("AUDIO");
-var audiofive = document.createElement("AUDIO");
-var audiosix = document.createElement("AUDIO");
-var audioseven = document.createElement("AUDIO");
+var backgroundm = document.createElement("AUDIO");
+var losingm = document.createElement("AUDIO");
+var	redm = document.createElement("AUDIO");
+var bluem = document.createElement("AUDIO");
+var greenm = document.createElement("AUDIO");
+var yellowm = document.createElement("AUDIO");
+var userm = document.createElement("AUDIO");
+var roundm = document.createElement("AUDIO");
 
 
 
@@ -30,7 +31,7 @@ function backgroundFade () {
 
 	$(bgimage).load(function(){
 
-		$("body").css("background-image","url("+$(this).attr("src")+")").fadeIn(7000);
+		$("body").css("background-image","url("+$(this).attr("src")+")").fadeIn(1000);
 
 	});
 
@@ -40,87 +41,88 @@ function backgroundFade () {
 
 function audioPlay () {
 
-	audioone.canPlayType("audio/mpeg");
+	backgroundm.canPlayType("audio/mpeg");
 
-	audioone.setAttribute("src","/audio/simonhightrim.mp3");
+	backgroundm.setAttribute("src","/audio/simonhightrim.mp3");
 
-	audioone.loop = true|false;
+	backgroundm.loop = true|false;
 
-	audioone.play().loop;
+	backgroundm.play().loop;
 
 };
 
 function losingAudio () {
 
-	audiotwo.canPlayType("audio/mpeg");
+	losingm.canPlayType("audio/mpeg");
 
-	audiotwo.setAttribute("src","/audio/simonend.mp3");
+	losingm.setAttribute("src","/audio/simonend.mp3");
 
-	audiotwo.loop = true|false;
+	losingm.loop = true|false;
 
-	audiotwo.loop;
+	losingm.loop;
 
-	audiotwo.play().loop;
+	losingm.play().loop;
 
 };
 
 function redAudio () {
 
-	audiothree.canPlayType("audio/mpeg");
+	redm.canPlayType("audio/mpeg");
 
-	audiothree.setAttribute("src","/audio/red.mp3");
+	redm.setAttribute("src","/audio/red.mp3");
 
-	audiothree.play();
+	redm.play();
 
 };
 
 function blueAudio () {
 
-	audiofour.canPlayType("audio/mpeg");
+	bluem.canPlayType("audio/mpeg");
 
-	audiofour.setAttribute("src","/audio/blue.mp3");
+	bluem.setAttribute("src","/audio/blue.mp3");
 
-	audiofour.play();
+	bluem.play();
 
 };
 
 function greenAudio () {
 
-	audiofive.canPlayType("audio/mpeg");
+	greenm.canPlayType("audio/mpeg");
 
-	audiofive.setAttribute("src","/audio/green.mp3");
+	greenm.setAttribute("src","/audio/green.mp3");
 
-	audiofive.play();
+	greenm.play();
 
 };
 
 function yellowAudio () {
 
-	audiosix.canPlayType("audio/mpeg");
+	yellowm.canPlayType("audio/mpeg");
 
-	audiosix.setAttribute("src","/audio/yellow.mp3");
+	yellowm.setAttribute("src","/audio/yellow.mp3");
 
-	audiosix.play();
+	yellowm.play();
 
 };
 
 function userAudio () {
 
-	audioseven.canPlayType("audio/mpeg");
+	userm.canPlayType("audio/mpeg");
 
-	audioseven.setAttribute("src","/audio/userclick.mp3");
+	userm.setAttribute("src","/audio/userclick.mp3");
 
-	audioseven.play();
+	userm.play();
 
 };
 
-// function for determining which round of Simon the user is on
+function roundAudio () {
 
-function simonRound () {
+	roundm.canPlayType("audio/mpeg");
 
-	$("div.roundcounter").html("<p>" + "Round: " + (roundcounter += 1) + "</p");
+	roundm.setAttribute("src", "/audio/.mp3")
 
-	$("div.roundcounter").hide().fadeIn(100);
+	roundm.play();
+
 
 }
 
@@ -130,7 +132,7 @@ function gameStart () {
 
 	$(".start").click(function() {
 
-		audiotwo.pause();
+		losingm.pause();
 
 		backgroundFade();
 
@@ -142,7 +144,7 @@ function gameStart () {
 
 		$(".end").fadeOut(300);
 
-		$("div.roundcounter").fadeIn(100);
+		$("div.roundcounter").fadeIn(200);
 
 		roundcounter = 0;
 
@@ -154,6 +156,30 @@ function gameStart () {
 
 gameStart();
 
+// function for determining which round of Simon the user is on
+
+function simonRound () {
+
+	$("div.roundcounter").hide().fadeIn(200);
+
+	$("div.roundcounter").html("<p>" + "Round: " + (roundcounter += 1) + "</p");
+
+	if (roundcounter >= 10) {
+
+		$(".gameboard").css("background-image", "url('../img/spin.gif')");
+
+	} else if (roundcounter >= 20) {
+
+		$(".gameboard").css("background-image", "url('../img/wavesofjoy.gif')");
+			
+	} else {
+
+		$(".gameboard").css("background-color","black");
+
+	};
+
+};
+
 // game over function
 
 function gameOver() {
@@ -162,13 +188,13 @@ function gameOver() {
 
 	$(".square").removeClass("down");
 
-	audioone.pause();
+	backgroundm.pause();
 
 	losingAudio(); 
 
 	$(".display").addClass("hidden").fadeOut(300);
 
-	roundcounter = 1;
+
 
 };
 
