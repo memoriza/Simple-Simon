@@ -30,8 +30,10 @@ main {
 }
 
 .roundcounter {
-	height: 100px;
-	width: 200px;
+	
+	width: 300px;
+	color: #E8C1C5;
+	font-size: 40px;
 }
 .square {
 	width: 200px;

@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+"use strict";
+
 // global variables
 			
 var simrandomnumber;
@@ -112,6 +114,48 @@ function userAudio () {
 
 };
 
+// function for determining which round of Simon the user is on
+
+function simonRound () {
+
+	$("div.roundcounter").html("<p>" + "Round: " + (roundcounter += 1) + "</p");
+
+	$("div.roundcounter").hide().fadeIn(100);
+
+}
+
+// game start function 
+
+function gameStart () {
+
+	$(".start").click(function() {
+
+		audiotwo.pause();
+
+		backgroundFade();
+
+		audioPlay();
+
+		$(".start").fadeOut(200,getRandomIntInclusive());	
+
+		$(".end").addClass("hidden");
+
+		$(".end").fadeOut(300);
+
+		$("div.roundcounter").fadeIn(100);
+
+		roundcounter = 0;
+
+		simonRound();
+
+	});
+	
+};
+
+gameStart();
+
+// game over function
+
 function gameOver() {
 
 	$(".start").fadeIn(300);
@@ -124,25 +168,9 @@ function gameOver() {
 
 	$(".display").addClass("hidden").fadeOut(300);
 
-	roundcounter = 0;
+	roundcounter = 1;
 
 };
-
-// function for determining which round of Simon the user is on
-
-function simonRound () { 
-
-	$("#roundcounter").removeClass("hidden").fadeIn(200);
-
-	$("#roundcounter").html(function () {
-
-		var count = "<p>" + "Round: " + roundcounter + "</p>";
-
-		return $(this).html(count);
-	});
-
-};
-
 
 // random number generator that adds to array when called
 
@@ -225,31 +253,7 @@ function lightingUp(element) {
 
 };
 
-// game start function 
 
-function gameStart () {
-
-	$(".start").click(function() {
-
-		audiotwo.pause();
-
-		backgroundFade();
-
-		audioPlay();
-
-		simonRound();
-
-		$(".start").fadeOut(200,getRandomIntInclusive());	
-
-		$(".end").addClass("hidden");
-
-		$(".end").fadeOut(300);
-
-	});
-
-};
-
-gameStart();
 			 
 // function for animation for user click 
 
@@ -279,6 +283,8 @@ function userClick () {
 
 				i = 0; 
 
+				simonRound();
+
 			} else {
 
 				i++;
@@ -290,6 +296,8 @@ function userClick () {
 			simonsequence = [];
 
 			i = 0;
+
+			$("div.roundcounter").fadeOut(50);
 
 			$(".end").removeClass("hidden").fadeIn(500);
 					
