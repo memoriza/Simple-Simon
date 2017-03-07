@@ -5,10 +5,17 @@ $(document).ready(function () {
 var simrandomnumber;
 var simonsequence = [];
 var i = 0;
+var roundcounter = 0;
 
 // audio variables
 var audioone = document.createElement("AUDIO");
 var audiotwo = document.createElement("AUDIO");
+var audiothree = document.createElement("AUDIO");
+var audiofour = document.createElement("AUDIO");
+var audiofive = document.createElement("AUDIO");
+var audiosix = document.createElement("AUDIO");
+var audioseven = document.createElement("AUDIO");
+
 
 
 // background fade in
@@ -17,13 +24,13 @@ function backgroundFade () {
 
 	var bgimage = new Image();
 
-		bgimage.src="../img/sun.jpg"
+	bgimage.src = "../img/sun.jpg";
 
-			$(bgimage).load(function(){
+	$(bgimage).load(function(){
 
-				$("body").css("background-image","url("+$(this).attr("src")+")").fadeIn(2000);
+		$("body").css("background-image","url("+$(this).attr("src")+")").fadeIn(7000);
 
-			});
+	});
 
 };
 
@@ -55,23 +62,87 @@ function losingAudio () {
 
 };
 
-// game start function 
+function redAudio () {
 
-$(".start").click(function() {
+	audiothree.canPlayType("audio/mpeg");
 
-	audiotwo.pause();
+	audiothree.setAttribute("src","/audio/red.mp3");
 
-	backgroundFade();
+	audiothree.play();
 
-	audioPlay();
+};
 
-	$(".start").fadeOut(200,getRandomIntInclusive());	
+function blueAudio () {
 
-	$(".end").fadeOut(300);
+	audiofour.canPlayType("audio/mpeg");
 
-	$(".end").addClass("hidden");
+	audiofour.setAttribute("src","/audio/blue.mp3");
 
-});
+	audiofour.play();
+
+};
+
+function greenAudio () {
+
+	audiofive.canPlayType("audio/mpeg");
+
+	audiofive.setAttribute("src","/audio/green.mp3");
+
+	audiofive.play();
+
+};
+
+function yellowAudio () {
+
+	audiosix.canPlayType("audio/mpeg");
+
+	audiosix.setAttribute("src","/audio/yellow.mp3");
+
+	audiosix.play();
+
+};
+
+function userAudio () {
+
+	audioseven.canPlayType("audio/mpeg");
+
+	audioseven.setAttribute("src","/audio/userclick.mp3");
+
+	audioseven.play();
+
+};
+
+function gameOver() {
+
+	$(".start").fadeIn(300);
+
+	$(".square").removeClass("down");
+
+	audioone.pause();
+
+	losingAudio(); 
+
+	$(".display").addClass("hidden").fadeOut(300);
+
+	roundcounter = 0;
+
+};
+
+// function for determining which round of Simon the user is on
+
+function simonRound () { 
+
+	$("#roundcounter").removeClass("hidden").fadeIn(200);
+
+	$("#roundcounter").html(function () {
+
+		var count = "<p>" + "Round: " + roundcounter + "</p>";
+
+		return $(this).html(count);
+	});
+
+};
+
 
 // random number generator that adds to array when called
 
@@ -131,36 +202,68 @@ function lightingUp(element) {
 	switch(element) {
 
 		case 1:
+			redAudio();
 			buttonFlash($(".red"));
 		break;
 
 		case 2:
+			blueAudio();
 			buttonFlash($(".blue"));
 		break;
 					
 		case 3:
+			greenAudio();
 			buttonFlash($(".green"));
 		break;
 
 		case 4:
+			yellowAudio();
 			buttonFlash($(".yellow"));
 		break;
 
 	};
 
 };
+
+// game start function 
+
+function gameStart () {
+
+	$(".start").click(function() {
+
+		audiotwo.pause();
+
+		backgroundFade();
+
+		audioPlay();
+
+		simonRound();
+
+		$(".start").fadeOut(200,getRandomIntInclusive());	
+
+		$(".end").addClass("hidden");
+
+		$(".end").fadeOut(300);
+
+	});
+
+};
+
+gameStart();
 			 
 // function for animation for user click 
 
-function squareClick () {
+function userClick () {
 
 	$(".square").mousedown(function() {
 
 		$(this).addClass("down");
+
+		userAudio();
 				
 		$(this).mouseup(function() {
 
-			$(this).removeClass("down");
+		$(this).removeClass("down");
 
 		});
 
@@ -190,19 +293,7 @@ function squareClick () {
 
 			$(".end").removeClass("hidden").fadeIn(500);
 					
-				function newRound() {
-
-					$(".start").fadeIn(300);
-
-					$(".square").removeClass("down");
-
-					audioone.pause();
-
-					losingAudio(); 
-
-				};
-
-		newRound();
+			gameOver();
 
 		};
 				
@@ -210,7 +301,7 @@ function squareClick () {
 
 };
 
-squareClick();
+userClick();
 
 });
 
