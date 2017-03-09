@@ -176,8 +176,6 @@ function gameOver() {
 
 	$(".display").addClass("hidden").fadeOut(300);
 
-
-
 };
 
 function getRandomIntInclusive() {
@@ -305,5 +303,3 @@ function userClick () {
 userClick();
 
 });
-
-
